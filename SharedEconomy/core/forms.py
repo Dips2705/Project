@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from datetime import datetime
+from django_countries.widgets import CountrySelectWidget
 
 class UserRegisterForm(forms.ModelForm):
     # email = forms.EmailField()
@@ -16,6 +17,8 @@ class TravellerForm(forms.ModelForm):
 	day = forms.DateField(
 		initial=datetime.today().strftime('%Y-%m-%d'), label='What is departure date?',widget=forms.widgets.DateTimeInput(attrs={"type": "date"}))
 
+
 	class Meta:
 		model = Traveller
 		fields = ['origin','destination','day']
+		widgets = {'origin': CountrySelectWidget(), 'destination': CountrySelectWidget()}

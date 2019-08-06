@@ -63,9 +63,10 @@ def traveller(request):
         if traveller_form.is_valid():
             origin = traveller_form.cleaned_data['origin']
             destination = traveller_form.cleaned_data['destination']
+            print(origin, destination)
             day = traveller_form.cleaned_data['day']
             Traveller.objects.create(user=request.user, origin=origin, destination=destination, day=day)
-
+            return redirect('core:tchoose')
             
         return render(request,template_name)
 
@@ -152,7 +153,7 @@ def addToCart(request, id):
     if request.method=="POST":
 
         product=Product.objects.get(id=id)
-        quantity=request.POST.get('quant')
+        quantity=request.POST.get('quantity')
         request.user.buyerUser.itemsInCart.add(product);
         ProductBuyer.objects.create(buyer=request.user.buyerUser, product=product, quantity=quantity)
         messages.success(request,f'Item has been Added to you Cart!')
@@ -161,11 +162,11 @@ def addToCart(request, id):
 
 
 def cart(request):
-    products=request.user.buyerUser.itemsInCart.all();
-
+    # products=request.user.buyerUser.itemsInCart.all();
+    products = ProductBuyer.objects.filter(buyer = request.user.buyerUser)
+    print(products)
     context = {
     'products': products,
-
     }
 
     return render(request, 'core/cart.html', context)
@@ -211,4 +212,14 @@ def tchoose(request):
 
 
 
-
+def checkout(request):
+     # products=request.user.buyerUser.itemsInCart.all();
+    products = ProductBuyer.objects.filter(buyer = request.user.buyerUser)
+    total=[]
+    for product in products:
+        total.append(product.product.price*product.quantity)
+    context = {
+        'products': products,
+        'total': total
+    }
+    return render(request, 'core/checkout.html',context)

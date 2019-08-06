@@ -33,7 +33,7 @@
               {% csrf_token %}
               
               <input type="button" value="-" class="decreaseVal">
-              <input type="number" min="0" max="10" value="0" class="val" name="quant" disabled>
+              <input type="number" id="quant" min="1" max="10" value="1" class="val" name="quantity">
               <input type="button" value="+" class="increaseVal">
 
               <div class="footer-social-icons ">
@@ -69,20 +69,7 @@
  {% block javascript %}
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
  <script type="text/javascript">
-//    function increaseValue() {
-//   var value = parseInt(document.getElementById('number').value, 10);
-//   value = isNaN(value) ? 0 : value;
-//   value++;
-//   document.getElementById('number').value = value;
-// }
 
-// function decreaseValue() {
-//   var value = parseInt(document.getElementById('number').value, 10);
-//   value = isNaN(value) ? 0 : value;
-//   value < 1 ? value = 1 : '';
-//   value--;
-//   document.getElementById('number').value = value;
-// }
 
 $(".decreaseVal").click(function() {
   var input_el=$(this).next('input');

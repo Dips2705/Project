@@ -13,6 +13,7 @@ urlpatterns= [
     path('load/', views.loadProducts, name="load"),
     path('cart/', views.cart, name="cart"),
     path('wishlist/', views.wishlist, name="wishlist"),
+    path('checkout/',views.checkout,name="checkout"),
     re_path(r'^buyprod/(?P<id>[0-9]+)/$', views.buyProd, name="buyProd"),
     re_path(r'^addtocart/(?P<id>[0-9]+)/$', views.addToCart, name="addToCart"),
 
